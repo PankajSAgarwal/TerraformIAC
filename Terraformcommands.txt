@@ -111,3 +111,4 @@ unset TF_VAR_ext_port
 37. terraform graph
 38. sudo apt install graphviz
 39. terraform graph|dot -Tpdf > graph-plan.pdf
+40. terraform graph -type=plan-destroy|dot -Tpdf > graph-destroyed-plan.pdf
