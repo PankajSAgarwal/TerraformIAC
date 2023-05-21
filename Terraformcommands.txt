@@ -107,3 +107,7 @@ unset TF_VAR_ext_port
 33. terraform workspace list
 34. terraform workspace show
 35. terraform workspace select dev
+36. terraform validate
+37. terraform graph
+38. sudo apt install graphviz
+39. terraform graph|dot -Tpdf > graph-plan.pdf
