@@ -1,3 +1,109 @@
 1. Remove docker images stored in cloud9 
 
 docker system prune -a
+
+2. terraform init 
+
+3. If u want to downgrade or upgrade the version of a provider
+
+terraform init -upgrade
+
+4. To contraint the version to upgrade a providers patch version specify version with symbol ~>
+
+e.g below code will not allow to upgrade version of provider kreuzwerker/docker beyong 2.12.
+Patch version of .0 may get upgrade to latest.
+
+terraform{
+    required_providers {
+        docker = {
+            source = "kreuzwerker/docker"
+            version = "~>2.12.0"
+        }
+    }
+}
+
+#initialize the provider
+provider docker {}
+5. Check the difference in terraform file
+
+terraform fmt -diff
+
+6. terraform plan
+
+7. terraform apply
+8. terraform destroy
+9. docker image ls
+10. save the plan in encoded format to a file called as plan1. 
+Note the plan1 file will be encoded but not encrypted . so not a good idea if ur plan contains secrets or sensitive info. 
+
+terraform plan -out=plan1
+
+11. to run terraform apply using a plan file .
+
+terraform apply <plan file name generated> // could be useful in automation
+
+12. terraform plan -destroy
+
+select the "destroy" planning mode, which creates a plan
+to destroy all objects currently managed by this Terraform configuration instead of the usual behavior.
+
+13. get ip of aws ec2 instance using ec2 metadata url
+
+curl http://169.254.169.254/latest/meta-data/public-ipv4
+
+14. terraform destroy --auto-approve
+15. sudo apt install jq
+16. To show terraform state details
+
+terraform show -json|jq
+
+17. list resources in terraform state file
+
+terraform state list
+
+18. terraform show|grep ip
+terraform show|grep name
+terraform show|grep image
+
+19. terraform console
+
+docker_container.nodered_container.name
+docker_container.nodered_container.ip_address
+
+20. terraform output
+
+21. taint a resource
+
+terraform taint random_string.random[0]
+
+22. untaint a resource 
+
+terraform untaint random_string.random[0]
+
+23. docker inspect --format="{{.ID}}" <<container-name>>
+
+24. terraform import <<resource name>> <<id of resource>>
+
+e.g terraform import docker_container.nodered_container $(docker inspect --format="{{.ID}}" <<container-name>>)
+
+25. terraform refresh
+
+26. terraform refresh -target random_string.random
+
+27. terraform state rm <<resource name>>
+
+28. terraform plan -var <<variable name>>
+
+e.g terraform plan -var ext_port=1880
+
+29. use environment variables 
+export TF_VAR_ext_port=1880
+30. unset environment variable
+
+unset TF_VAR_ext_port
+
+31. terraform plan --var-file west.tfvars
+32. terraform workspace new dev
+33. terraform workspace list
+34. terraform workspace show
+35. terraform workspace select dev
