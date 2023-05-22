@@ -112,3 +112,8 @@ unset TF_VAR_ext_port
 38. sudo apt install graphviz
 39. terraform graph|dot -Tpdf > graph-plan.pdf
 40. terraform graph -type=plan-destroy|dot -Tpdf > graph-destroyed-plan.pdf
+41. docker volume ls
+42. terraform graph -draw-cycles| dot -Tpdf > graph-cycle.pdf
+43. delete docker volumes
+
+docker volume rm -f $(docker volume ls -q)
