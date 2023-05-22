@@ -117,3 +117,5 @@ unset TF_VAR_ext_port
 43. delete docker volumes
 
 docker volume rm -f $(docker volume ls -q)
+
+44. terraform destroy -target=module.container[0].docker_container.nodered_container

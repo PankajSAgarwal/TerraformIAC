@@ -16,4 +16,7 @@ resource "docker_volume" "container_volume" {
 #   <code>terraform graph -draw-cycles| dot -Tpdf > graph-cycle.pdf</code>
 #  name = "${docker_container.nodered_container.name}-volume"
   name = "${var.name_in}-volume"
+  lifecycle {
+    prevent_destroy = false
+  }
 }
