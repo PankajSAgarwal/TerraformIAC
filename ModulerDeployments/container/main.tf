@@ -4,7 +4,7 @@ resource "random_string" "random" {
   special = false
   upper = false
 }
-resource "docker_container" "nodered_container" {
+resource "docker_container" "app_container" {
   count = var.count_in
   name  = join("-",[var.name_in,terraform.workspace,random_string.random[count.index].result])
   image = var.image_in
