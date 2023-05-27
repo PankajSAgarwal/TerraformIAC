@@ -27,6 +27,7 @@ provider docker {}
 5. Check the difference in terraform file
 
 terraform fmt -diff
+terraform fmt -recursive
 
 6. terraform plan
 
@@ -81,6 +82,8 @@ terraform taint random_string.random[0]
 terraform untaint random_string.random[0]
 
 23. docker inspect --format="{{.ID}}" <<container-name>>
+
+docker inspect $(docker ps -a -q)|grep volume
 
 24. terraform import <<resource name>> <<id of resource>>
 
