@@ -93,3 +93,11 @@ resource "aws_security_group" "pankaj_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+resource "aws_db_subnet_group" "pankaj_rds_subnetgroup" {
+  count = var.db_subnet_group==true ? 1 : 0
+  name = "pankaj_rds_subnetgroup"
+  subnet_ids = aws_subnet.pankaj_private_subnet.*.id
+  tags = {
+    Name = "pankaj_rds_sng"
+  }
+}
