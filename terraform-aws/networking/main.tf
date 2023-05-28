@@ -71,20 +71,25 @@ resource "aws_default_route_table" "pankaj_private_rt" {
   }
 }
 resource "aws_security_group" "pankaj_sg" {
-  name = "public_sg"
-  description = "Security Group for Public access"
-  vpc_id = aws_vpc.pankaj_vpc.id
-  ingress {
-    from_port = 22
-    protocol  = "tcp"
-    to_port   = 22
-    cidr_blocks = [var.access_ip]
+  for_each = var.security_groups
+  name        = each.value.name
+  description = each.value.description
+  vpc_id      = aws_vpc.pankaj_vpc.id
+  dynamic "ingress" {
+    for_each = each.value.ingress
+    content {
+      from_port   = ingress.value.from
+      protocol    = ingress.value.protocol
+      to_port     = ingress.value.to
+      cidr_blocks = ingress.value.cidr_blocks
+    }
+
   }
 
   egress {
-    from_port = 0
-    protocol  = "-1"
-    to_port   = 0
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
