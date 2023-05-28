@@ -71,7 +71,7 @@ resource "aws_default_route_table" "pankaj_private_rt" {
   }
 }
 resource "aws_security_group" "pankaj_sg" {
-  for_each = var.security_groups
+  for_each    = var.security_groups
   name        = each.value.name
   description = each.value.description
   vpc_id      = aws_vpc.pankaj_vpc.id
@@ -94,8 +94,8 @@ resource "aws_security_group" "pankaj_sg" {
   }
 }
 resource "aws_db_subnet_group" "pankaj_rds_subnetgroup" {
-  count = var.db_subnet_group==true ? 1 : 0
-  name = "pankaj_rds_subnetgroup"
+  count      = var.db_subnet_group == true ? 1 : 0
+  name       = "pankaj_rds_subnetgroup"
   subnet_ids = aws_subnet.pankaj_private_subnet.*.id
   tags = {
     Name = "pankaj_rds_sng"
