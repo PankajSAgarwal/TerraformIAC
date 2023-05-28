@@ -8,3 +8,9 @@ output "db_subnet_group_name" {
 output "db_security_group" {
   value = [aws_security_group.pankaj_sg["rds"].id]
 }
+output "public_sg" {
+  value = aws_security_group.pankaj_sg["public"].id
+}
+output "public_subnets" {
+  value = aws_subnet.pankaj_public_subnet.*.id
+}

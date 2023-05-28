@@ -11,6 +11,7 @@ module "networking" {
   private_cidrs    = [for i in range(1, 255, 2) : cidrsubnet(local.vpc_cidr, 8, i)]
   db_subnet_group = true
 }
+/*
 module "database" {
   source = "./database"
   db_storage = 10 #Gigibyte
@@ -24,4 +25,10 @@ module "database" {
   db_subnet_group_name = module.networking.db_subnet_group_name[0]
   vpc_security_group_ids = module.networking.db_security_group
 
+}*/
+
+module "loadbalancing" {
+  source = "./loadbalancing"
+  public_sg = module.networking.public_sg
+  public_subnets = module.networking.public_subnets
 }
