@@ -23,3 +23,14 @@ resource "aws_subnet" "pankaj_public_subnet" {
     Name = "pankaj_public_${count.index + 1}"
   }
 }
+
+resource "aws_subnet" "pankaj_private_subnet" {
+  vpc_id = aws_vpc.pankaj_vpc.id
+  count = length(var.private_cidrs)
+  cidr_block = var.private_cidrs[count.index]
+  map_public_ip_on_launch = false
+  availability_zone = ["us-west-2a","us-west-2b","us-west-2c","us-west-2d"][count.index]
+  tags = {
+    Name = "pankaj_private_${count.index + 1}"
+  }
+}
