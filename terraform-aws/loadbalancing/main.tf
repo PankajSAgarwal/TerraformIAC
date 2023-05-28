@@ -17,3 +17,12 @@ resource "aws_lb_target_group" "pankaj_tg" {
     interval            = var.lb_interval            #30
   }
 }
+resource "aws_lb_listener" "pankaj_lb_listener" {
+  load_balancer_arn = aws_lb.pankaj_lb.arn
+  port              = var.listener_port     #80
+  protocol          = var.listener_protocol #"HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.pankaj_tg.arn
+  }
+}
