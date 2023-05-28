@@ -1,4 +1,5 @@
 # -------- networking/main.tf--------------
+data "aws_availability_zones" "available" {}
 resource "random_integer" "random" {
   min = 1
   max = 100
@@ -18,7 +19,7 @@ resource "aws_subnet" "pankaj_public_subnet" {
   count                   = var.public_sn_count
   cidr_block              = var.public_cidrs[count.index]
   map_public_ip_on_launch = true
-  availability_zone       = ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d"][count.index]
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
   tags = {
     Name = "pankaj_public_${count.index + 1}"
   }
@@ -29,7 +30,7 @@ resource "aws_subnet" "pankaj_private_subnet" {
   count                   = var.private_sn_count
   cidr_block              = var.private_cidrs[count.index]
   map_public_ip_on_launch = false
-  availability_zone       = ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d"][count.index]
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
   tags = {
     Name = "pankaj_private_${count.index + 1}"
   }
