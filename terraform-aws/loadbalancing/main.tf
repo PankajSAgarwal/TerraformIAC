@@ -10,6 +10,10 @@ resource "aws_lb_target_group" "pankaj_tg" {
   port     = var.tg_port     #80
   protocol = var.tg_protocol #HTTP
   vpc_id   = var.vpc_id
+  lifecycle {
+    ignore_changes = [name]
+    create_before_destroy = true
+  }
   health_check {
     healthy_threshold   = var.lb_healthy_threshold   #2
     unhealthy_threshold = var.lb_unhealthy_threshold #2
