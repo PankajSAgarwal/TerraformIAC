@@ -5,31 +5,31 @@ resource "random_integer" "random" {
 }
 
 resource "aws_vpc" "pankaj_vpc" {
-  cidr_block = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
-  enable_dns_support = true
+  enable_dns_support   = true
   tags = {
     Name = "pankaj-vpc-${random_integer.random.id}"
   }
 }
 
 resource "aws_subnet" "pankaj_public_subnet" {
-  vpc_id = aws_vpc.pankaj_vpc.id
-  count = length(var.public_cidrs)
-  cidr_block = var.public_cidrs[count.index]
+  vpc_id                  = aws_vpc.pankaj_vpc.id
+  count                   = var.public_sn_count
+  cidr_block              = var.public_cidrs[count.index]
   map_public_ip_on_launch = true
-  availability_zone = ["us-west-2a","us-west-2b","us-west-2c","us-west-2d"][count.index]
+  availability_zone       = ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d"][count.index]
   tags = {
     Name = "pankaj_public_${count.index + 1}"
   }
 }
 
 resource "aws_subnet" "pankaj_private_subnet" {
-  vpc_id = aws_vpc.pankaj_vpc.id
-  count = length(var.private_cidrs)
-  cidr_block = var.private_cidrs[count.index]
+  vpc_id                  = aws_vpc.pankaj_vpc.id
+  count                   = var.private_sn_count
+  cidr_block              = var.private_cidrs[count.index]
   map_public_ip_on_launch = false
-  availability_zone = ["us-west-2a","us-west-2b","us-west-2c","us-west-2d"][count.index]
+  availability_zone       = ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d"][count.index]
   tags = {
     Name = "pankaj_private_${count.index + 1}"
   }
