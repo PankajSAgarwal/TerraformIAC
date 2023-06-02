@@ -48,4 +48,6 @@ module "compute" {
   instance_count = 1
   instance_type = "t3.micro"
   vol_size = 10
+  key_name = "pankajkey"
+  public_key_path = "/home/ubuntu/.ssh/keypankaj.pub"
 }

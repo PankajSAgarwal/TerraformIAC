@@ -123,3 +123,6 @@ docker volume rm -f $(docker volume ls -q)
 
 44. terraform destroy -target=module.container[0].docker_container.nodered_container
 45. terraform providers schema -json | jq '.' > schema.json
+46 generate a public key
+
+ssh-keygen -t rsa
